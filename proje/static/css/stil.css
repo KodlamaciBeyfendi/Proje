@@ -1,0 +1,19 @@
+/* Tüm sayfayı kapsayan düzenleme */
+html, body {
+    height: 100%;
+    margin: 0;
+    display: grid;
+    place-items: center; /* Hem yatayda hem dikeyde ortalamak için */
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* Ana içerik container'ı */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
