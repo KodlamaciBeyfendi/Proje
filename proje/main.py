@@ -41,7 +41,7 @@ with app.app_context():
 def home():
     if 'user_id' not in session:
         return redirect(url_for('login'))
-    return f"Hoş geldiniz, {session['username']}!"
+    return render_template("home.html")
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -51,13 +51,14 @@ def login():
 
         # Kullanıcıyı bul
         user = User.query.filter_by(username=username).first()
-        if not user or not check_password_hash(user.password, password):
+        if password != user.password:
             return render_template('login.html', error="Geçersiz kullanıcı adı veya şifre!")
 
         # Oturum aç
         session['user_id'] = user.id
         session['username'] = user.username
-        return redirect(url_for('home'))
+        return render_template('home.html')
+
 
     return render_template('login.html')
 
@@ -109,10 +110,10 @@ def analyze():
     }
 
     # Modelin döndürdüğü etiketi kontrol et
-    sentiment = sentiment_translation[language].get(result['label'], "Unknown")
+    sentiment = result['label']
     score = round(result['score'], 2)
-
-    return render_template('result.html', text=user_input, sentiment=sentiment, score=score, language=language)
+    print (sentiment)
+    return render_template('result.html', text=user_input, sentiment=sentiment  , score=score, language=language)
 
 
 @app.route('/upload', methods=['POST'])
